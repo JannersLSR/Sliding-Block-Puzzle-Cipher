@@ -58,7 +58,12 @@ function permuteBlocks(bytes, perm) {
   return out;
 }
 
-const b64encode = (bytes) => btoa(String.fromCharCode(...bytes));
+// loop, not spread — String.fromCharCode(...bytes) overflows the stack on large inputs.
+function b64encode(bytes) {
+  let s = '';
+  for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+  return btoa(s);
+}
 const b64decode = (str) => Uint8Array.from(atob(str), (c) => c.charCodeAt(0));
 
 export function encrypt(text, perm) {

@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "node check.mjs"
+    "check": "node check.mjs",
+    "bench": "node bench.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

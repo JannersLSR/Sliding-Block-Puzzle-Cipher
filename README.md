@@ -33,7 +33,32 @@ npm run dev      # dev server (http://localhost:5173)
 npm run build    # production build → dist/
 npm run preview  # serve the built dist/ locally
 npm run check    # headless cipher roundtrip check (CI / pre-deploy gate)
+npm run bench    # encrypt/decrypt timing benchmark (prints the table below)
 ```
+
+## Performance
+
+Median of 30 runs per cell (Node, single thread). Each row also asserts a
+correct roundtrip, so the benchmark doubles as a correctness test. Reproduce
+with `npm run bench` — absolute numbers vary by machine.
+
+| Grid | Block (B) | Payload | Encrypt (ms) | Decrypt (ms) | Throughput (MB/s) |
+| --- | --- | --- | --- | --- | --- |
+| 5×5 | 24 | 1 KB | 0.020 | 0.069 | 49.0 |
+| 5×5 | 24 | 10 KB | 0.093 | 0.595 | 107.1 |
+| 5×5 | 24 | 100 KB | 1.515 | 6.675 | 66.0 |
+| 5×5 | 24 | 1 MB | 14.118 | 70.290 | 70.8 |
+| 8×8 | 63 | 1 KB | 0.010 | 0.059 | 101.0 |
+| 8×8 | 63 | 10 KB | 0.086 | 0.579 | 116.3 |
+| 8×8 | 63 | 100 KB | 1.001 | 6.750 | 99.9 |
+| 8×8 | 63 | 1 MB | 12.582 | 68.989 | 79.5 |
+| 10×10 | 99 | 1 KB | 0.016 | 0.086 | 61.0 |
+| 10×10 | 99 | 10 KB | 0.095 | 0.608 | 105.7 |
+| 10×10 | 99 | 100 KB | 1.224 | 6.405 | 81.7 |
+| 10×10 | 99 | 1 MB | 13.556 | 69.494 | 73.8 |
+
+Linear in payload size, near-flat across grid size. Decrypt is ~5× encrypt
+(Base64 decode + UTF-8 decode + per-block inverse dominate).
 
 ## Files
 
