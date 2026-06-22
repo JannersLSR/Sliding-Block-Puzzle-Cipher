@@ -6,6 +6,8 @@ byte permutation, which shuffles the bytes of your message in ECB mode.
 
 React + Vite single-page app.
 
+**Live demo:** https://sliding-block-puzzle-cipher.vercel.app/
+
 > ⚠️ **Educational toy, not real crypto.** A byte permutation is trivially
 > breakable (frequency analysis, known-plaintext). Do not protect anything
 > real with this.
